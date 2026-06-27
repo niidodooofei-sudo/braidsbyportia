@@ -1,16 +1,22 @@
 {
   "version": 2,
   "builds": [
-    { "src": "*.php",       "use": "vercel-php@0.7.1" },
-    { "src": "api/*.php",   "use": "vercel-php@0.7.1" }
+    {
+      "src": "router.php",
+      "use": "vercel-php@0.7.1",
+      "config": {
+        "includeFiles": "**/*.php"
+      }
+    }
   ],
   "routes": [
-    { "src": "/styles/(.*)", "dest": "/styles/$1" },
-    { "src": "/js/(.*)",     "dest": "/js/$1" },
-    { "src": "/photos/(.*)", "dest": "/photos/$1" },
-    { "src": "/api/(.+)",    "dest": "/api/$1" },
-    { "src": "/(.*)\\.php",  "dest": "/$1.php" },
-    { "src": "/([^/.]+)",    "dest": "/$1.php" },
-    { "src": "/",            "dest": "/index.php" }
+    { "src": "/styles/(.*)",  "dest": "/styles/$1" },
+    { "src": "/js/(.*)",      "dest": "/js/$1" },
+    { "src": "/photos/(.*)",  "dest": "/photos/$1" },
+    { "src": "/PHOTO(.*)",    "dest": "/PHOTO$1" },
+    { "src": "/pattern.svg",  "dest": "/pattern.svg" },
+    { "src": "/favicon(.*)",  "dest": "/favicon$1" },
+    { "src": "/(.*\\.(css|js|png|jpg|JPG|ico|svg))", "dest": "/$1" },
+    { "src": "/(.*)",         "dest": "/router.php" }
   ]
 }
