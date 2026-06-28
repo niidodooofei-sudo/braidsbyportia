@@ -26,6 +26,16 @@ mainNav?.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
+// Prefix all internal absolute links when site runs in a subdirectory
+(function () {
+  const base = window.APP_BASE || '';
+  if (!base) return;
+  document.querySelectorAll('a[href^="/"]').forEach(a => {
+    const h = a.getAttribute('href');
+    if (!h.startsWith(base)) a.setAttribute('href', base + h);
+  });
+})();
+
 // Scroll reveal
 const revealEls = document.querySelectorAll('.reveal');
 if (revealEls.length) {

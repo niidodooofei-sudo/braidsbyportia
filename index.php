@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Braids by Portia | African Hair Braiding';
 $page_desc  = 'Premium African hair braiding — box braids, knotless, French curls, twists, locs and more. Book your appointment online today.';
-$extra_js   = '<script src="/js/home.js"></script>';
+$extra_js   = '<script src="' . APP_BASE . '/js/home.js"></script>';
 require 'config/stripe.php';
 require 'includes/header.php';
 $services = require 'config/services';

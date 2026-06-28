@@ -247,7 +247,7 @@ async function loadTimeSlots(date) {
   none.classList.add('hidden');
 
   const duration = state.service?.duration ?? 60;
-  const res  = await fetch(`/api/availability.php?date=${date}&duration=${duration}`);
+  const res  = await fetch(`${window.APP_BASE}/api/availability.php?date=${date}&duration=${duration}`);
   const data = await res.json();
   loading.classList.add('hidden');
 
@@ -308,7 +308,7 @@ async function initPayment() {
   $('pay-btn').disabled = true;
   stripe = Stripe(window.STRIPE_PK);
 
-  const res  = await fetch('/api/create-payment-intent.php', {
+  const res  = await fetch(window.APP_BASE + '/api/create-payment-intent.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ service_name: state.service?.name }),
@@ -377,7 +377,7 @@ $('pay-btn').addEventListener('click', async () => {
 });
 
 async function confirmBooking(piId) {
-  const res = await fetch('/api/confirm-booking.php', {
+  const res = await fetch(window.APP_BASE + '/api/confirm-booking.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

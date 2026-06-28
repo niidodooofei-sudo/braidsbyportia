@@ -1,5 +1,11 @@
 <?php
+require __DIR__ . '/config/app.php';
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Strip subdirectory prefix so routes always start with /
+if (APP_BASE !== '' && strpos($uri, APP_BASE) === 0) {
+    $uri = substr($uri, strlen(APP_BASE));
+}
 $uri = rtrim($uri, '/') ?: '/';
 
 // Block direct access to data directory
