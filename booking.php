@@ -4,12 +4,12 @@ $page_desc  = 'Book your braiding appointment online — choose your style, pick
 require 'config/stripe.php';
 $services    = require 'config/services.php';
 $preset_cat  = htmlspecialchars($_GET['cat'] ?? '');
-$extra_head  = '<link rel="stylesheet" href="' . APP_BASE . '/styles/booking.css">';
+$extra_head  = '<link rel="stylesheet" href="styles/booking.css">';
 $extra_js    = '<script src="https://js.stripe.com/v3/"></script>'
              . '<script>window.STRIPE_PK = ' . json_encode(STRIPE_PUBLISHABLE_KEY) . ';</script>'
              . '<script>window.SERVICES_DATA = ' . json_encode($services) . ';</script>'
              . '<script>window.PRESET_CAT = ' . json_encode($preset_cat) . ';</script>'
-             . '<script src="' . APP_BASE . '/js/booking.js" defer></script>';
+             . '<script src="js/booking.js" defer></script>';
 require 'includes/header.php';
 ?>
 

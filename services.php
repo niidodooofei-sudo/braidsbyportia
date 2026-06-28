@@ -25,7 +25,7 @@ $services = require 'config/services.php';
             <h3 class="service-cat-name"><?= htmlspecialchars($cat['name']) ?></h3>
             <p class="service-cat-desc"><?= htmlspecialchars($cat['desc']) ?></p>
           </div>
-          <a href="/booking.php?cat=<?= urlencode($key) ?>" class="btn-gold-sm">Book Now</a>
+          <a href="booking.php?cat=<?= urlencode($key) ?>" class="btn-gold-sm">Book Now</a>
         </div>
 
         <?php if ($cat['type'] === 'list'): ?>
@@ -78,7 +78,7 @@ $services = require 'config/services.php';
 
       <div class="services-cta reveal">
         <p>Not sure which style is right for you? Book a consultation and we'll help you choose.</p>
-        <a href="/booking" class="btn-gold">Book Your Appointment</a>
+        <a href="booking.php" class="btn-gold">Book Your Appointment</a>
       </div>
     </div>
   </section>

@@ -16,7 +16,7 @@ require 'includes/header.php';
     <div class="container about-grid">
       <div class="about-image-wrap reveal">
         <div class="about-img-placeholder">
-          <img src="/PHOTO-2026-04-24-12-40-21.jpg" alt="Braids by Portia" class="about-logo">
+          <img src="PHOTO-2026-04-24-12-40-21.jpg" alt="Braids by Portia" class="about-logo">
         </div>
       </div>
       <div class="about-content reveal">
@@ -38,7 +38,7 @@ require 'includes/header.php';
             <div><strong>Your Vision, Realized</strong><span>We listen, advise, and deliver your perfect look</span></div>
           </div>
         </div>
-        <a href="/booking" class="btn-gold">Book With Us</a>
+        <a href="booking.php" class="btn-gold">Book With Us</a>
       </div>
     </div>
   </section>

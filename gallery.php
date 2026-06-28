@@ -19,7 +19,7 @@ require 'includes/header.php';
         <?php for($i=1;$i<=9;$i++) echo "<div class=\"g-tile g{$i}\"></div>"; ?>
       </div>
       <div class="gallery-cta" style="margin-top:3rem">
-        <a href="/booking" class="btn-gold">Book Your Style</a>
+        <a href="booking.php" class="btn-gold">Book Your Style</a>
       </div>
     </div>
   </section>

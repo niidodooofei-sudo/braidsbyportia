@@ -7,11 +7,9 @@ $booking = null;
 
 if ($ref) {
     $path = __DIR__ . '/data/bookings.json';
-    if (file_exists($path)) {
-        $all = json_decode(file_get_contents($path), true) ?? [];
-        foreach ($all as $b) {
-            if (($b['id'] ?? '') === $ref) { $booking = $b; break; }
-        }
+    $all  = json_decode(file_get_contents($path), true) ?? [];
+    foreach ($all as $b) {
+        if (($b['id'] ?? '') === $ref) { $booking = $b; break; }
     }
 }
 ?>
@@ -37,8 +35,8 @@ if ($ref) {
         <p class="success-note">Please arrive 5–10 minutes before your appointment. If you need to reschedule, contact us at least 24 hours in advance.</p>
 
         <div class="success-actions">
-          <a href="/services" class="btn-outline-gold">Browse Services</a>
-          <a href="/" class="btn-gold">Back to Home</a>
+          <a href="services.php" class="btn-outline-gold">Browse Services</a>
+          <a href="index.php" class="btn-gold">Back to Home</a>
         </div>
       </div>
       <?php else: ?>
@@ -47,7 +45,7 @@ if ($ref) {
         <h1>Booking Confirmed!</h1>
         <p class="success-sub">Thank you for booking with Braids by Portia. A confirmation email is on its way.</p>
         <div class="success-actions">
-          <a href="/" class="btn-gold">Back to Home</a>
+          <a href="index.php" class="btn-gold">Back to Home</a>
         </div>
       </div>
       <?php endif; ?>

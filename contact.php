@@ -17,10 +17,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$v['message'])                                 $errors[] = 'message';
 
     if (!$errors) {
-        require_once __DIR__ . '/includes/mailer.php';
-        $to   = getenv('SALON_EMAIL') ?: 'portia@braidsbyportia.com';
-        $body = "Name:    {$v['name']}\nEmail:   {$v['email']}\nPhone:   {$v['phone']}\n\nMessage:\n{$v['message']}";
-        send_email($to, 'New message from Braids by Portia website', $body);
+        $to      = 'YOUR_EMAIL@example.com'; // ← update before going live
+        $subject = 'New message from Braids by Portia website';
+        $body    = "Name:    {$v['name']}\n"
+                 . "Email:   {$v['email']}\n"
+                 . "Phone:   {$v['phone']}\n\n"
+                 . "Message:\n{$v['message']}";
+        $headers = "From: noreply@braidsbyportia.com\r\n"
+                 . "Reply-To: {$v['email']}\r\n";
+        mail($to, $subject, $body, $headers);
         $success = true;
     }
 }
@@ -50,7 +55,7 @@ require 'includes/header.php';
           <div class="cf-success-icon">✓</div>
           <h4>Message sent!</h4>
           <p>Thank you, <?= htmlspecialchars($v['name']) ?>. We'll be in touch within 24 hours.</p>
-          <a href="/contact" class="btn-outline-gold" style="margin-top:1.25rem;display:inline-block">Send another</a>
+          <a href="contact.php" class="btn-outline-gold" style="margin-top:1.25rem;display:inline-block">Send another</a>
         </div>
         <?php else: ?>
         <form method="POST" class="cf-form" novalidate>
@@ -126,7 +131,7 @@ require 'includes/header.php';
 
         <div class="contact-book-strip reveal">
           <p>Ready to secure your spot?</p>
-          <a href="/booking" class="btn-gold">Book Your Appointment</a>
+          <a href="booking.php" class="btn-gold">Book Your Appointment</a>
           <span class="booking-note">Secure payments powered by Stripe</span>
         </div>
       </div>
