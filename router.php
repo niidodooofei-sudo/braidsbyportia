@@ -2,6 +2,12 @@
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = rtrim($uri, '/') ?: '/';
 
+// Block direct access to data directory
+if (strpos($uri, '/data/') === 0) {
+    http_response_code(403);
+    exit;
+}
+
 $routes = [
     '/'                          => 'index.php',
     '/services'                  => 'services.php',
@@ -14,6 +20,7 @@ $routes = [
     '/api/create-payment-intent' => 'api/create-payment-intent.php',
     '/api/confirm-booking'       => 'api/confirm-booking.php',
     '/api/webhook'               => 'api/webhook.php',
+    '/admin'                     => 'admin/index.php',
 ];
 
 // Strip .php suffix so both /services and /services.php work

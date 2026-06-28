@@ -1,5 +1,6 @@
 <?php
-$current = basename($_SERVER['PHP_SELF'], '.php');
+$_uri     = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$current  = basename($_uri, '.php') ?: 'index';
 function nav_class($page, $current) {
     return 'nav-link' . ($page === $current ? ' active' : '');
 }
@@ -27,19 +28,19 @@ function nav_class($page, $current) {
 
 <header class="site-header <?= $current !== 'index' ? 'scrolled always-solid' : '' ?>" id="site-header">
   <div class="container nav-container">
-    <a href="/index.php" class="nav-logo">
+    <a href="/" class="nav-logo">
       <img src="/PHOTO-2026-04-24-12-40-21.jpg" alt="Braids by Portia">
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
       <ul>
-        <li><a href="/services.php"  class="<?= nav_class('services', $current) ?>">Services</a></li>
-        <li><a href="/gallery.php"   class="<?= nav_class('gallery',  $current) ?>">Gallery</a></li>
-        <li><a href="/about.php"     class="<?= nav_class('about',    $current) ?>">About</a></li>
-        <li><a href="/contact.php"   class="<?= nav_class('contact',  $current) ?>">Contact</a></li>
+        <li><a href="/services"  class="<?= nav_class('services', $current) ?>">Services</a></li>
+        <li><a href="/gallery"   class="<?= nav_class('gallery',  $current) ?>">Gallery</a></li>
+        <li><a href="/about"     class="<?= nav_class('about',    $current) ?>">About</a></li>
+        <li><a href="/contact"   class="<?= nav_class('contact',  $current) ?>">Contact</a></li>
       </ul>
-      <a href="/booking.php" class="btn-gold nav-book-mobile">Book Now</a>
+      <a href="/booking" class="btn-gold nav-book-mobile">Book Now</a>
     </nav>
-    <a href="/booking.php" class="btn-book-nav <?= $current === 'booking' ? 'active' : '' ?>">Book Now</a>
+    <a href="/booking" class="btn-book-nav <?= $current === 'booking' ? 'active' : '' ?>">Book Now</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>

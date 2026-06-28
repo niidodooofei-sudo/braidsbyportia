@@ -38,7 +38,7 @@ require 'includes/header.php';
             <div><strong>Your Vision, Realized</strong><span>We listen, advise, and deliver your perfect look</span></div>
           </div>
         </div>
-        <a href="/booking.php" class="btn-gold">Book With Us</a>
+        <a href="/booking" class="btn-gold">Book With Us</a>
       </div>
     </div>
   </section>

@@ -25,9 +25,9 @@ if ($date < date('Y-m-d')) {
     exit;
 }
 
-// Load existing bookings for that date
+// Load existing bookings for that date (file may not exist on Vercel — treat as no bookings)
 $bookings_path = dirname(__DIR__) . '/data/bookings.json';
-$all_bookings  = json_decode(file_get_contents($bookings_path), true) ?? [];
+$all_bookings  = file_exists($bookings_path) ? (json_decode(file_get_contents($bookings_path), true) ?? []) : [];
 $day_bookings  = array_filter($all_bookings, fn($b) => ($b['date'] ?? '') === $date && ($b['status'] ?? '') === 'confirmed');
 
 // Generate candidate slots

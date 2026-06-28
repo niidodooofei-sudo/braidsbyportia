@@ -4,7 +4,7 @@ $page_desc  = 'Premium African hair braiding — box braids, knotless, French cu
 $extra_js   = '<script src="/js/home.js"></script>';
 require 'config/stripe.php';
 require 'includes/header.php';
-$services = require 'config/services.php';
+$services = require 'config/services';
 ?>
 
 <main>
@@ -21,8 +21,8 @@ $services = require 'config/services.php';
       <h1>Where Every Braid<br><em>Tells a Story</em></h1>
       <p class="hero-sub">Expert braiding styles crafted with precision, care, and quality extensions. Serving you with artistry rooted in African tradition.</p>
       <div class="hero-ctas">
-        <a href="/booking.php" class="btn-gold">Book Appointment</a>
-        <a href="/services.php" class="btn-outline">Explore Services</a>
+        <a href="/booking" class="btn-gold">Book Appointment</a>
+        <a href="/services" class="btn-outline">Explore Services</a>
       </div>
     </div>
     <a href="#intro" class="scroll-hint" aria-label="Scroll down"><span class="scroll-line"></span></a>
@@ -79,7 +79,7 @@ $services = require 'config/services.php';
         <?php endforeach; ?>
       </div>
       <div class="home-services-cta reveal">
-        <a href="/services.php" class="btn-outline-gold">View All Services &amp; Pricing</a>
+        <a href="/services" class="btn-outline-gold">View All Services &amp; Pricing</a>
       </div>
     </div>
   </section>
@@ -183,7 +183,7 @@ $services = require 'config/services.php';
         <?php for($i=1;$i<=9;$i++) echo "<div class=\"g-tile g{$i}\"></div>"; ?>
       </div>
       <div class="gallery-cta reveal">
-        <a href="/gallery.php" class="btn-outline-gold">View Full Gallery</a>
+        <a href="/gallery" class="btn-outline-gold">View Full Gallery</a>
       </div>
     </div>
   </section>
@@ -195,7 +195,7 @@ $services = require 'config/services.php';
         <h2>Ready for Your Next Look?</h2>
         <p>Book your appointment online — choose your style, pick your time, and secure your spot with a $<?= DEPOSIT_AMOUNT_DOLLARS ?? 50 ?> deposit.</p>
       </div>
-      <a href="/booking.php" class="btn-gold btn-large">Book Now</a>
+      <a href="/booking" class="btn-gold btn-large">Book Now</a>
     </div>
   </section>
 </main>

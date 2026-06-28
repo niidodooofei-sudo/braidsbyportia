@@ -20,10 +20,7 @@ if (!hash_equals($expected, $parts['v1'] ?? '')) {
 
 $event = json_decode($payload, true);
 if (($event['type'] ?? '') === 'payment_intent.succeeded') {
-    // Backup confirmation — the frontend confirm-booking.php is the primary path.
-    // Log the event for audit purposes.
-    $log_path = dirname(__DIR__) . '/data/webhook-log.txt';
-    file_put_contents($log_path, date('c') . ' payment_intent.succeeded ' . $event['data']['object']['id'] . PHP_EOL, FILE_APPEND);
+    error_log('stripe webhook: payment_intent.succeeded ' . ($event['data']['object']['id'] ?? 'unknown'));
 }
 
 http_response_code(200);

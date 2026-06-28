@@ -54,40 +54,39 @@ $record = [
     'created_at'       => date('c'),
 ];
 
-// Persist to bookings.json with file lock
+// Persist to bookings.json — best-effort (filesystem may be read-only on Vercel)
 $path = dirname(__DIR__) . '/data/bookings.json';
-$fp   = fopen($path, 'c+');
-if (flock($fp, LOCK_EX)) {
-    $all = json_decode(stream_get_contents($fp), true) ?? [];
-    $all[] = $record;
-    ftruncate($fp, 0);
-    rewind($fp);
-    fwrite($fp, json_encode($all, JSON_PRETTY_PRINT));
-    flock($fp, LOCK_UN);
+if (is_writable(dirname($path))) {
+    $fp = @fopen($path, 'c+');
+    if ($fp && flock($fp, LOCK_EX)) {
+        $all = json_decode(stream_get_contents($fp), true) ?? [];
+        $all[] = $record;
+        ftruncate($fp, 0); rewind($fp);
+        fwrite($fp, json_encode($all, JSON_PRETTY_PRINT));
+        flock($fp, LOCK_UN);
+    }
+    if ($fp) fclose($fp);
 }
-fclose($fp);
 
 // Email to client
-$to      = $record['customer']['email'];
-$subject = 'Booking Confirmed – Braids by Portia';
-$msg     = "Hi {$record['customer']['name']},\n\n"
-         . "Your appointment is confirmed!\n\n"
-         . "Service: {$record['service_name']}\n"
-         . "Date:    " . date('l, F j, Y', strtotime($record['date'])) . "\n"
-         . "Time:    " . date('g:i A', strtotime($record['time'])) . "\n"
-         . "Deposit paid: \$" . $record['deposit'] . "\n"
-         . "Balance due at appointment: \$" . ($record['price'] - $record['deposit']) . "\n\n"
-         . "Please arrive 5–10 minutes early. To reschedule, contact us at least 24 hrs in advance.\n\n"
-         . "— Braids by Portia";
-@mail($to, $subject, $msg, 'From: noreply@braidsbyportia.com');
+require_once dirname(__DIR__) . '/includes/mailer.php';
+$client_msg = "Hi {$record['customer']['name']},\n\n"
+    . "Your appointment is confirmed!\n\n"
+    . "Service: {$record['service_name']}\n"
+    . "Date:    " . date('l, F j, Y', strtotime($record['date'])) . "\n"
+    . "Time:    " . date('g:i A', strtotime($record['time'])) . "\n"
+    . "Deposit paid: \$" . $record['deposit'] . "\n"
+    . "Balance due at appointment: \$" . ($record['price'] - $record['deposit']) . "\n\n"
+    . "Please arrive 5–10 minutes early. To reschedule, contact us at least 24 hrs in advance.\n\n"
+    . "— Braids by Portia";
+send_email($record['customer']['email'], 'Booking Confirmed – Braids by Portia', $client_msg);
 
 // Notification to salon
-@mail('YOUR_EMAIL@example.com', 'New Booking – ' . $record['service_name'],
-    "New booking from {$record['customer']['name']} ({$record['customer']['phone']})\n"
+$salon = getenv('SALON_EMAIL') ?: 'portia@braidsbyportia.com';
+$salon_msg = "New booking from {$record['customer']['name']} ({$record['customer']['phone']})\n"
     . "Service: {$record['service_name']}\n"
     . "Date: {$record['date']} at {$record['time']}\n"
-    . "Notes: {$record['customer']['notes']}",
-    'From: noreply@braidsbyportia.com'
-);
+    . "Notes: {$record['customer']['notes']}";
+send_email($salon, 'New Booking – ' . $record['service_name'], $salon_msg);
 
 echo json_encode(['success' => true, 'ref' => $ref]);
