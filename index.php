@@ -17,7 +17,6 @@ $services = require 'config/services.php';
     <div class="overlay" aria-hidden="true"></div>
     <div class="hero-content">
       <img src="PHOTO-2026-04-24-12-40-21.jpg" alt="Braids by Portia logo" class="hero-logo">
-      <p class="eyebrow">Premium African Hair Braiding</p>
       <h1>Where Every Braid<br><em>Tells a Story</em></h1>
       <p class="hero-sub">Expert braiding styles crafted with precision, care, and quality extensions. Serving you with artistry rooted in African tradition.</p>
       <div class="hero-ctas">
