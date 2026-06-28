@@ -21,6 +21,7 @@ function nav_class($page, $current) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="photostyles.php">
   <?= $extra_head ?? '' ?>
 </head>
 <body class="page-<?= htmlspecialchars($current) ?>">
