@@ -2,7 +2,9 @@
 function send_email(string $to, string $subject, string $body): void {
     $api_key = getenv('RESEND_API_KEY');
     if (!$api_key) {
-        error_log("mailer: no RESEND_API_KEY set — skipping email to $to");
+        // Fall back to PHP mail() — works on cPanel/shared hosting
+        $from_addr = getenv('MAIL_FROM') ?: 'noreply@braidsbyportia.com';
+        @mail($to, $subject, $body, "From: Braids by Portia <{$from_addr}>\r\nContent-Type: text/plain; charset=UTF-8");
         return;
     }
     $from = getenv('MAIL_FROM') ?: 'Braids by Portia <noreply@braidsbyportia.com>';
