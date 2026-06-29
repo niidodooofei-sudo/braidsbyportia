@@ -1,0 +1,8 @@
+{
+    "salon_email": "portia@braidsbyportia.com",
+    "deposit_amount": 50,
+    "stripe_publishable_key": "",
+    "stripe_secret_key": "",
+    "stripe_webhook_secret": "",
+    "admin_password_hash": ""
+}

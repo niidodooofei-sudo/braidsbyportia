@@ -1,4 +1,12 @@
 <?php
+// If CMS has saved a services override, use it; otherwise return built-in defaults
+$_svc_override = dirname(__DIR__) . '/data/services.json';
+if (is_file($_svc_override)) {
+    $_ = json_decode(file_get_contents($_svc_override), true);
+    if (is_array($_)) { unset($_svc_override); return $_; }
+}
+unset($_svc_override);
+
 return [
     'quick' => [
         'name' => 'Quick & Specialty Styles',

@@ -67,6 +67,11 @@ if (flock($fp, LOCK_EX)) {
 }
 fclose($fp);
 
+// Load salon email from settings
+$_sf = dirname(__DIR__) . '/data/settings.json';
+$_ss = is_file($_sf) ? (json_decode(file_get_contents($_sf), true) ?? []) : [];
+$salon_email = !empty($_ss['salon_email']) ? $_ss['salon_email'] : 'portia@braidsbyportia.com';
+
 // Email to client
 $to      = $record['customer']['email'];
 $subject = 'Booking Confirmed – Braids by Portia';
@@ -79,15 +84,15 @@ $msg     = "Hi {$record['customer']['name']},\n\n"
          . "Balance due at appointment: \$" . ($record['price'] - $record['deposit']) . "\n\n"
          . "Please arrive 5–10 minutes early. To reschedule, contact us at least 24 hrs in advance.\n\n"
          . "— Braids by Portia";
-@mail($to, $subject, $msg, 'From: noreply@braidsbyportia.com');
+@mail($to, $subject, $msg, "From: Braids by Portia <noreply@braidsbyportia.com>\r\nContent-Type: text/plain; charset=UTF-8");
 
 // Notification to salon
-@mail('YOUR_EMAIL@example.com', 'New Booking – ' . $record['service_name'],
+@mail($salon_email, 'New Booking – ' . $record['service_name'],
     "New booking from {$record['customer']['name']} ({$record['customer']['phone']})\n"
     . "Service: {$record['service_name']}\n"
     . "Date: {$record['date']} at {$record['time']}\n"
     . "Notes: {$record['customer']['notes']}",
-    'From: noreply@braidsbyportia.com'
+    "From: noreply@braidsbyportia.com\r\nContent-Type: text/plain; charset=UTF-8"
 );
 
 echo json_encode(['success' => true, 'ref' => $ref]);
